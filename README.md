@@ -1,14 +1,13 @@
-# Fufu RedirectCraft Patcher
+# RedirectCraft Patcher for FufuLauncher Plugin
 
-单文件、免安装的 Windows GUI 工具，用于移除芙芙启动器主插件中
-“启用合成台重定向”的显式场景限制。
+单exe、免安装的 Windows GUI 工具，用于移除芙芙启动器主插件中“启用合成台重定向”的场景限制。
 
 ## 使用
 
-1. 完全退出游戏和芙芙启动器。
+1. 建议先完全退出原神游戏本体和芙芙启动器。
 2. 运行 `FufuRedirectCraftPatcher.exe`。
-3. 选择芙芙启动器最外层文件夹。
-4. 程序自动定位：
+3. 选择芙芙启动器文件夹（FufuLauncher）。
+4. 等待程序自动定位：
 
    ```text
    FufuLauncher\Plugins\FuFuPlugin\FufuLauncher.UnlockerIsland.dll
@@ -16,12 +15,12 @@
 
 5. 状态为绿色 `PATCHABLE` 后点击 `Patch 应用补丁`。
 
-蓝色 `PATCHED` 表示当前 DLL 已修改；红色 `UNPATCHABLE` 表示工具无法安全地
-唯一确认目标条件，此时不会写入文件。
+蓝色 `PATCHED` 表示当前 DLL 已修改；红色 `UNPATCHABLE` 表示工具无法安全地唯一确认目标条件，拒绝写入文件。
 
 ## 安全机制
 
-- 未知版本要求官方 Authenticode 签名有效。
+- 数字签名和文件版本只作为报告信息展示，不再参与 `Patchable` 判定。
+- 所有 DLL 统一通过 UPX 解包及语义/控制流结构验证。
 - 支持普通 PE 和标准 UPX 压缩的 AMD64 DLL。
 - UPX 5.2.0 嵌入 EXE，释放后先校验 SHA256，再隐藏运行。
 - 通过配置字符串、Craft/AutoCook 日志引用、相同跳转目标和 `.pdata` 函数范围
@@ -37,7 +36,7 @@
 https://github.com/upx/upx
 
 UPX 的 `LICENSE` 和 `COPYING` 文件作为嵌入资源随 EXE 一同提供。UPX 仅用于在
-临时目录解包用户选择的、经过验证的插件副本；解包结束后临时目录会被清理。
+临时目录解包用户选择的、经过验证的插件副本；解包结束后临时目录会被自动清理。
 
 ## 构建
 

@@ -21,20 +21,6 @@ namespace RedirectCraftPatcher
         private const string UpxResource = "Embedded.upx.exe";
         private const string UpxSha256 = "F4C0CC7ACA0F1FF0D0B750E966B44139F2FA1A2DB7281F48FC52194400712E1D";
 
-        private static readonly HashSet<string> KnownOriginalHashes =
-            new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-            {
-                "81CE64E376B05C565EB171500663AB655866D26DBE3A9F54013B6D501E0C113F",
-                "18621B174A82F4E68B6D3C85FDC0D3F23DAA50DFAF80C5D5E8EE3561E19B9A1E"
-            };
-
-        private static readonly HashSet<string> KnownPatchedHashes =
-            new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-            {
-                "A8E02FEBD45860304A15A4D27C12A12BA68C20ECA2B1CE25C1AE9CCCF8B87254",
-                "7C17885227D3D891677DD9E0D7548EBF9671F935ADD30FA156680E34ADEE3F9B"
-            };
-
         public static string ResolveDllPath(string selectedFolder)
         {
             if (string.IsNullOrWhiteSpace(selectedFolder)) return null;
@@ -94,20 +80,6 @@ namespace RedirectCraftPatcher
                 result.OriginalBytes = HexToBytes(matchedManifest.OriginalBytes);
                 result.PatchedBytes = HexToBytes(matchedManifest.PatchedBytes);
                 result.Message = "当前 DLL 已由本工具修改，并与本地校验清单一致。";
-                return result;
-            }
-
-            if (KnownPatchedHashes.Contains(result.OriginalSha256))
-            {
-                result.State = AnalysisState.Patched;
-                result.Detector = "Known patched hash";
-                result.Message = "已识别为受支持版本的补丁 DLL。若要还原，需要同目录原始备份。";
-                return result;
-            }
-
-            if (!signatureValid && !KnownOriginalHashes.Contains(result.OriginalSha256))
-            {
-                result.Message = "未知版本必须具有有效的官方数字签名；本文件未通过签名验证。";
                 return result;
             }
 
