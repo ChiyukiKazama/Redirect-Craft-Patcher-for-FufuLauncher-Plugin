@@ -1,14 +1,14 @@
-# Fufu RedirectCraft Patcher
+# RedirectCraft Patcher for FufuLauncher Plugin
 
 单文件、免安装的 Windows GUI 工具，用于移除芙芙启动器主插件中
 “启用合成台重定向”的显式场景限制。
 
 ## 使用
 
-1. 完全退出游戏和芙芙启动器。
+1. 建议先完全退出游戏和芙芙启动器。
 2. 运行 `FufuRedirectCraftPatcher.exe`。
-3. 选择芙芙启动器最外层文件夹。
-4. 程序自动定位：
+3. 选择芙芙启动器文件夹。
+4. 等待程序自动定位：
 
    ```text
    FufuLauncher\Plugins\FuFuPlugin\FufuLauncher.UnlockerIsland.dll
